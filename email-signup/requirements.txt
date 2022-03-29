@@ -9,7 +9,7 @@ multiprocess
 dill
 pyamf
 psutil
-plyvel
+plyvel==1.3.0
 tblib
 tabulate
 pytest
