@@ -1,5 +1,8 @@
-from ..SocketInterface import serversocket
-from ..MPLogger import loggingclient
+import sys
+sys.path.append("..")
+
+from SocketInterface import serversocket
+from MPLogger import loggingclient
 import plyvel
 import time
 import os

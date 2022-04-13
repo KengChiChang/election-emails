@@ -1,6 +1,9 @@
+import sys
+sys.path.append("./automation")
+
 from automation import TaskManager, CommandSequence
-from urllib import urlencode
-from urllib2 import Request, urlopen
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 import pandas as pd
 
 # Constants
@@ -35,7 +38,7 @@ def crawl_site(site, manager, user_data):
 manager_params, browser_params = TaskManager.load_default_params(NUM_BROWSERS)
 
 # Update browser configuration (use this for per-browser settings)
-for i in xrange(NUM_BROWSERS):
+for i in range(NUM_BROWSERS):
     browser_params[i]['headless'] = True
     browser_params[i]['bot_mitigation'] = True
     browser_params[i]['disable_flash'] = True

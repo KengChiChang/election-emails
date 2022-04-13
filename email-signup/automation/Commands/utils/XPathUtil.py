@@ -107,7 +107,7 @@ def xp1_wildcard(attr, string, normalize=True):
         attr = 'normalize-space(' + attr + ')'
 
     if len(parts) != 2:
-        print "ERROR: This function is meant to support 1 wildcard"
+        print("ERROR: This function is meant to support 1 wildcard")
         return '[' + attr + '=' + string + ']'
     else:
         pt1 = ''
@@ -127,12 +127,12 @@ def xp1_wildcard(attr, string, normalize=True):
         elif pt1 != '' and pt2 != '':
             return ('[' + pt1 + ' and ' + pt2 + ']')
         else:
-            print "ERROR: The string is empty"
+            print("ERROR: The string is empty")
             return '[' + attr + '=' + string + ']'
 
 if __name__=='__main__':
     #Output some sample XPaths
-    print "--- Sample XPaths ---"
+    print("--- Sample XPaths ---")
     import urllib2
     import re
     from random import choice
@@ -142,8 +142,8 @@ if __name__=='__main__':
         elements = soup.findAll(text = re.compile('[A-Za-z0-9]{10,}'))
         for i in range(0,5):
             element = choice(elements).parent
-            print "HTML"
-            print element
-            print "XPath"
-            print ExtractXPath(element)
-            print "**************"
+            print("HTML")
+            print(element)
+            print("XPath")
+            print(ExtractXPath(element))
+            print("**************")

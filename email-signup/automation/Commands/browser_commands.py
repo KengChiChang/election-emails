@@ -1,3 +1,7 @@
+import sys
+sys.path.append("..")
+import six
+
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,11 +12,11 @@ import os
 import random
 import time
 
-from ..SocketInterface import clientsocket
-from ..MPLogger import loggingclient
-from utils.lso import get_flash_cookies
-from utils.firefox_profile import get_cookies  # todo: add back get_localStorage,
-from utils.webdriver_extensions import scroll_down, wait_until_loaded, get_intra_links
+from SocketInterface import clientsocket
+from MPLogger import loggingclient
+from Commands.utils.lso import get_flash_cookies
+from Commands.utils.firefox_profile import get_cookies  # todo: add back get_localStorage,
+from Commands.utils.webdriver_extensions import scroll_down, wait_until_loaded, get_intra_links
 
 # Library for core WebDriver-based browser commands
 
@@ -85,7 +89,7 @@ def get_website(url, sleep, visit_id, webdriver, proxy_queue, browser_params, ex
         while not proxy_queue.empty():
             time.sleep(0.001)
     if extension_socket is not None:
-        extension_socket.send(visit_id)
+        extension_socket.send(six.b(repr(visit_id)))
 
     # Execute a get through selenium
     try:
@@ -129,7 +133,7 @@ def extract_links(webdriver, browser_params, manager_params):
       location TEXT
     )
     """, ())
-    sock.send(create_table_query)
+    sock.send(six.b(create_table_query))
 
     if len(link_urls) > 0:
         current_url = webdriver.current_url
@@ -138,7 +142,7 @@ def extract_links(webdriver, browser_params, manager_params):
         VALUES (?, ?)
         """
         for link in link_urls:
-            sock.send((insert_query_string, (current_url, link)))
+            sock.send(six.b((insert_query_string, (current_url, link))))
 
     sock.close()
 
@@ -194,7 +198,7 @@ def dump_flash_cookies(start_time, visit_id, webdriver, browser_params, manager_
                   key, content) VALUES (?,?,?,?,?,?,?)", (browser_params['crawl_id'], visit_id, cookie.domain,
                                                           cookie.filename, cookie.local_path,
                                                           cookie.key, cookie.content))
-        sock.send(query)
+        sock.send(six.b(query))
 
     # Close connection to db
     sock.close()
@@ -222,7 +226,7 @@ def dump_profile_cookies(start_time, visit_id, webdriver, browser_params, manage
             query = ("INSERT INTO profile_cookies (crawl_id, visit_id, baseDomain, name, value, \
                       host, path, expiry, accessed, creationTime, isSecure, isHttpOnly) \
                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (browser_params['crawl_id'], visit_id) + row)
-            sock.send(query)
+            sock.send(six.b(query))
 
     # Close connection to db
     sock.close()

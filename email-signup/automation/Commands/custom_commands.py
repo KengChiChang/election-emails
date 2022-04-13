@@ -1,21 +1,23 @@
+import sys
+sys.path.append("..")
+
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver as wd
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException
-from urllib import urlencode
-from urllib2 import Request, urlopen, URLError
-from urlparse import urljoin
+from urllib.parse import urlencode, urljoin
+from urllib.request import urlopen, Request, URLError
 import random
 import time
 import timeit
 import datetime
 import re
 
-from ..MPLogger import loggingclient
-from ..utilities import domain_utils
-from utils.webdriver_extensions import wait_until_loaded
-from browser_commands import get_website, bot_mitigation, save_screenshot, dump_page_source
+from MPLogger import loggingclient
+from utilities import domain_utils
+from Commands.utils.webdriver_extensions import wait_until_loaded
+from Commands.browser_commands import get_website, bot_mitigation, save_screenshot, dump_page_source
 
 # Link text ranking
 _TYPE_TEXT = 'text'

@@ -1,13 +1,16 @@
+import sys
+sys.path.append("..")
+
 import tarfile
-import cPickle
+import pickle
 import shutil
 import sys
 import os
 
-from ..Errors import ProfileLoadError
-from ..MPLogger import loggingclient
-from utils.firefox_profile import sleep_until_sqlite_checkpoint
-from utils.file_utils import rmsubtree
+from Errors import ProfileLoadError
+from MPLogger import loggingclient
+from Commands.utils.firefox_profile import sleep_until_sqlite_checkpoint
+from Commands.utils.file_utils import rmsubtree
 
 # Flash Plugin Storage Location -- Linux ONLY
 HOME = os.path.expanduser('~')

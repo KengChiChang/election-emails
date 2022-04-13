@@ -19,14 +19,14 @@ def sleep_until_sqlite_checkpoint(profile_dir, timeout=60):
     while (timeout > 0 and tmp_sqlite_files_exist(profile_dir)):
         time.sleep(1)
         timeout -= 1
-    print "Waited for %s seconds for sqlite checkpointing" % (60 - timeout)
+    print("Waited for %s seconds for sqlite checkpointing" % (60 - timeout))
 
 
 def get_localStorage(profile_directory, mod_since):
     #TODO how to support modified since???
     ff_ls_file = os.path.join(profile_directory, 'webappsstore.sqlite')
     if not os.path.isfile(ff_ls_file):
-        print "Cannot find localstorage DB %s" % ff_ls_file
+        print("Cannot find localstorage DB %s" % ff_ls_file)
     else:
         conn = sqlite3.connect(ff_ls_file)
         with conn:
@@ -40,7 +40,7 @@ def get_localStorage(profile_directory, mod_since):
 def get_cookies(profile_directory, mod_since):
     cookie_db = os.path.join(profile_directory, 'cookies.sqlite')
     if not os.path.isfile(cookie_db):
-        print "cannot find cookie.db", cookie_db
+        print("cannot find cookie.db", cookie_db)
     else:
         conn = sqlite3.connect(cookie_db)
         with conn:
