@@ -1,9 +1,6 @@
-import sys
-sys.path.append("./automation")
-
 from automation import TaskManager, CommandSequence
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+from urllib import urlencode
+from urllib2 import Request, urlopen
 import pandas as pd
 
 # Constants
