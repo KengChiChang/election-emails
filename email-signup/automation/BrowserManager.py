@@ -7,13 +7,13 @@ from MPLogger import loggingclient
 from Errors import ProfileLoadError, BrowserConfigError, BrowserCrashError
 
 from multiprocess import Process, Queue
-from queue import Empty as EmptyQueue
+from Queue import Empty as EmptyQueue
 from tblib import pickling_support
 pickling_support.install()
 from six import reraise
 import traceback
 import tempfile
-import pickle
+import cPickle
 import shutil
 import signal
 import time
@@ -138,7 +138,7 @@ class Browser:
                     error_string += " | %s: %s " % (string, launch_status.get(string, False))
                 self.logger.error("BROWSER %i: Spawn unsuccessful %s" % (self.crawl_id, error_string))
                 self.kill_browser_manager()
-                if launch_status.__contains__('Profile Created'):
+                if launch_status.has_key('Profile Created'):
                     shutil.rmtree(spawned_profile_path, ignore_errors=True)
 
         # If the browser spawned successfully, we should update the

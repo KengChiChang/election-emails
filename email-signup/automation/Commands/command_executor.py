@@ -1,6 +1,6 @@
-from . import browser_commands
-from . import profile_commands
-from . import custom_commands
+import browser_commands
+import profile_commands
+import custom_commands
 
 
 def execute_command(command, webdriver, proxy_queue, browser_settings, browser_params, manager_params, extension_socket):

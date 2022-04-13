@@ -1,7 +1,7 @@
 """ Support for logging with the multiprocessing module """
 from SocketInterface import serversocket
 
-from queue import Empty as EmptyQueue
+from Queue import Empty as EmptyQueue
 import logging.handlers
 import logging
 import struct
@@ -30,8 +30,7 @@ class ClientSocketHandler(logging.handlers.SocketHandler):
         s = json.dumps(d)
         if ei:
             record.exc_info = ei  # for next handler
-        s = bytes(s, "utf-8")
-        return struct.pack('>Ic', len(s), b'j') + s
+        return struct.pack('>Ic', len(s), 'j') + s
 
 def loggingclient(logger_address, logger_port, level=logging.DEBUG):
     """ Establishes a logger that sends log records to loggingserver """
@@ -149,4 +148,4 @@ if __name__ == '__main__':
     # Close the logging server
     status_queue.put('DIE')
     loggingserver.join()
-    print("Server closed, exiting...")
+    print "Server closed, exiting..."

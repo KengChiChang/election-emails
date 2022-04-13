@@ -1,7 +1,7 @@
 # This module parses MITM Proxy requests/responses into (command, data pairs)
 # This should mean that the MITMProxy code should simply pass the messages + its own data to this module
 
-import urllib.parse
+from urlparse import urlparse
 import datetime
 import mmh3
 import json

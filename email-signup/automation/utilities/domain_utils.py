@@ -1,6 +1,6 @@
 from publicsuffix import PublicSuffixList, fetch
 from ipaddress import ip_address
-import urllib.parse
+from urlparse import urlparse
 from functools import wraps
 import tempfile
 import codecs
@@ -14,11 +14,11 @@ def get_psl():
     Grabs an updated public suffix list.
     """
     if not os.path.isfile(PSL_CACHE_LOC):
-        print("%s does not exist, downloading a copy." % PSL_CACHE_LOC)
+        print "%s does not exist, downloading a copy." % PSL_CACHE_LOC
         psl_file = fetch()
         with codecs.open(PSL_CACHE_LOC, 'w', encoding='utf8') as f:
             f.write(psl_file.read())
-    print("Using psl from cache: %s" % PSL_CACHE_LOC)
+    print "Using psl from cache: %s" % PSL_CACHE_LOC
     psl_cache = codecs.open(PSL_CACHE_LOC, encoding='utf8')
     return PublicSuffixList(psl_cache)
 

@@ -1,8 +1,5 @@
-import sys
-sys.path.append("..")
-
 """ Set prefs and load extensions in Firefox """
-from Errors import BrowserConfigError
+from ..Errors import BrowserConfigError
 import shutil
 import sys
 import os
@@ -31,9 +28,9 @@ def privacy(browser_params, fp, root_dir, browser_profile_path):
 
     # Tracking Protection
     if browser_params['tracking-protection']:
-        print("ERROR: Tracking Protection doesn't seem to work in Firefox 41 with selenium.")
-        print("       It does work in 42 Beta. This will be enabled once that lands in release.")
-        print("       Press Ctrl+C to exit")
+        print "ERROR: Tracking Protection doesn't seem to work in Firefox 41 with selenium."
+        print "       It does work in 42 Beta. This will be enabled once that lands in release."
+        print "       Press Ctrl+C to exit"
         sys.exit(1)
         #fp.set_preference('privacy.trackingprotection.enabled', True)
 
