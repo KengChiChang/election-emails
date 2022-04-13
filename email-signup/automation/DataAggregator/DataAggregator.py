@@ -1,5 +1,8 @@
-from ..SocketInterface import serversocket
-from ..MPLogger import loggingclient
+import sys
+sys.path.append("..")
+
+from SocketInterface import serversocket
+from MPLogger import loggingclient
 from sqlite3 import OperationalError
 from sqlite3 import ProgrammingError
 import sqlite3
@@ -73,20 +76,20 @@ def process_query(query, curr, logger):
     query is of form (template_string, arguments)
     """
     if len(query) != 2:
-        print "ERROR: Query is not the correct length"
+        print("ERROR: Query is not the correct length")
         return
     statement = query[0]
     args = list(query[1])
     for i in range(len(args)):
-        if type(args[i]) == str:
-            args[i] = unicode(args[i], errors='ignore')
+        if type(args[i]) == bytes:
+            args[i] = str(args[i], errors='ignore')
         elif callable(args[i]):
             args[i] = str(args[i])
     try:
         if len(args) == 0:
             curr.execute(statement)
         else:
-            curr.execute(statement,args)
+            curr.execute(statement,str(args))
     except OperationalError as e:
         logger.error("Unsupported query" + '\n' + str(type(e)) + '\n' + str(e) + '\n' + statement + '\n' + str(args))
         pass

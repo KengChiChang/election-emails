@@ -17,7 +17,9 @@ fi
 
 sudo apt-get update
 
-sudo apt-get install -y firefox htop git python-dev libxml2-dev libxslt-dev libffi-dev libssl-dev build-essential xvfb libboost-python-dev libleveldb-dev libjpeg-dev
+sudo apt-get install -y htop git python-dev libxml2-dev libxslt-dev libffi-dev libssl-dev build-essential xvfb libboost-python-dev libleveldb-dev libjpeg-dev
+
+sudo apt install x11-utils
 
 # For some versions of ubuntu, the package libleveldb1v5 isn't available. Use libleveldb1 instead.
 sudo apt-get install -y libleveldb1v5 || sudo apt-get install -y libleveldb1
@@ -29,10 +31,12 @@ fi
 # Check if we're running on continuous integration
 # Python requirements are already installed by .travis.yml on Travis
 if [ "$TRAVIS" != "true" ]; then
-	wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-	sudo -H python get-pip.py
-	rm get-pip.py
-	sudo pip install -U -r requirements.txt
+	# wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+	# sudo -H python get-pip.py
+	# rm get-pip.py
+  # sudo pip install -U -r requirements.txt
+  sudo -H pip3 install --upgrade pip
+	pip3 install -U -r requirements.txt
 fi
 
 # Install specific version of Firefox known to work well with the selenium version above
@@ -47,3 +51,7 @@ tar jxf firefox*.tar.bz2
 rm -rf firefox-bin
 mv firefox firefox-bin
 rm firefox*.tar.bz2
+
+sudo apt-get install --reinstall libgtk2.0-0
+
+chmod 770 ~/.mozilla/

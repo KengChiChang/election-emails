@@ -29,7 +29,7 @@ def parse_http_stack_trace_str(trace_str):
                                 "async_cause": async_cause,
                                 })
         except Exception as exc:
-            print "Exception parsing the stack frame %s %s" % (frame, exc)
+            print("Exception parsing the stack frame %s %s" % (frame, exc))
     return stack_trace
 
 def get_version():
@@ -51,14 +51,14 @@ def get_version():
                     ff = line[8:].strip()
                     break
     except IOError as e:
-        raise IOError, \
+        raise(IOError, 
               IOError("%s \n Did you run `./install.sh`? OpenWPM "
                       "requires a Firefox package installed within "
                       "a `firefox-bin` directory in the root "
                       "directory of the platform. \n The `application.ini` "
                       "file is used to determine the version of Firefox "
-                      "present in that directory." % str(e)), \
-              sys.exc_info()[2]
+                      "present in that directory." % str(e)), 
+              sys.exc_info()[2])
     return openwpm, ff
 
 def get_configuration_string(manager_params, browser_params, versions):
@@ -156,16 +156,16 @@ def fetch_adblockplus_list(output_directory, wait_time=20):
     # Force pre-loading so we don't allow some ads through
     fp.set_preference('extensions.adblockplus.please_kill_startup_performance', True)
 
-    print "Starting webdriver with AdBlockPlus activated"
+    print("Starting webdriver with AdBlockPlus activated")
     driver = webdriver.Firefox(firefox_profile = fp, firefox_binary = fb)
-    print "Sleeping %i seconds to give the list time to download" % wait_time
+    print("Sleeping %i seconds to give the list time to download" % wait_time)
     time.sleep(wait_time)
 
     if not os.path.isdir(output_directory):
-        print "Output directory %s does not exist, creating." % output_directory
+        print("Output directory %s does not exist, creating." % output_directory)
         os.makedirs(output_directory)
 
-    print "Copying blocklists to %s" % output_directory
+    print("Copying blocklists to %s" % output_directory)
     try:
         shutil.copy(browser_path+'adblockplus/patterns.ini', output_directory)
         shutil.copy(browser_path+'adblockplus/elemhide.css', output_directory)

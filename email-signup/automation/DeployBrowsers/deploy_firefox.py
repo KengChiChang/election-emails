@@ -1,6 +1,9 @@
-from ..MPLogger import loggingclient
-from ..Commands.profile_commands import load_profile
-import configure_firefox
+import sys
+sys.path.append("..")
+
+from MPLogger import loggingclient
+from Commands.profile_commands import load_profile
+from DeployBrowsers import configure_firefox
 
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium import webdriver
@@ -81,7 +84,7 @@ def deploy_firefox(status_queue, browser_params, manager_params, crash_recovery)
         extension_config.update(browser_params)
         extension_config['logger_address'] = manager_params['logger_address']
         extension_config['sqlite_address'] = manager_params['aggregator_address']
-        if manager_params.has_key('ldb_address'):
+        if manager_params.__contains__('ldb_address'):
             extension_config['leveldb_address'] = manager_params['ldb_address']
         else:
             extension_config['leveldb_address'] = None
@@ -134,7 +137,7 @@ def deploy_firefox(status_queue, browser_params, manager_params, crash_recovery)
 
     # Launch the webdriver
     status_queue.put(('STATUS','Launch Attempted',None))
-    fb = FirefoxBinary(root_dir  + "/../../firefox-bin/firefox")
+    fb = FirefoxBinary(os.path.join(root_dir + "/../../", 'firefox-bin/firefox'))
     driver = webdriver.Firefox(firefox_profile=fp, firefox_binary=fb)
     status_queue.put(('STATUS','Browser Launched',(int(driver.binary.process.pid), profile_settings)))
 

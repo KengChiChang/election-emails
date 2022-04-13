@@ -1,3 +1,7 @@
+import sys
+sys.path.append("./automation")
+import six
+
 from BrowserManager import Browser
 from DataAggregator import DataAggregator, LevelDBAggregator
 from SocketInterface import clientsocket
@@ -7,11 +11,11 @@ import CommandSequence
 import MPLogger
 
 from multiprocess import Process, Queue
-from Queue import Empty as EmptyQueue
+from queue import Empty as EmptyQueue
 from tblib import pickling_support
 pickling_support.install()
 from six import reraise
-import cPickle
+import pickle
 import threading
 import copy
 import os
@@ -31,7 +35,7 @@ def load_default_params(num_browsers=1):
     fp = open(os.path.join(os.path.dirname(__file__), 'default_browser_params.json'))
     preferences = json.load(fp)
     fp.close()
-    browser_params = [copy.deepcopy(preferences) for i in xrange(0, num_browsers)]
+    browser_params = [copy.deepcopy(preferences) for i in range(0, num_browsers)]
 
     fp = open(os.path.join(os.path.dirname(__file__), 'default_manager_params.json'))
     manager_params = json.load(fp)
@@ -153,7 +157,7 @@ class TaskManager:
         self.task_id = cur.lastrowid
 
         # Record browser details for each brower
-        for i in xrange(self.num_browsers):
+        for i in range(self.num_browsers):
             cur.execute("INSERT INTO crawl (task_id, browser_params) VALUES (?,?)",
                         (self.task_id, json.dumps(browser_params[i])))
             self.db.commit()
@@ -167,7 +171,7 @@ class TaskManager:
     def _initialize_browsers(self, browser_params):
         """ initialize the browser classes, each its unique set of parameters """
         browsers = list()
-        for i in xrange(self.num_browsers):
+        for i in range(self.num_browsers):
             browsers.append(Browser(self.manager_params, browser_params[i]))
 
         return browsers
@@ -190,8 +194,7 @@ class TaskManager:
             # These are found within the scope of each instance of Browser in the browsers list
             screen_res = str(browser.browser_settings['screen_res'])
             ua_string = str(browser.browser_settings['ua_string'])
-            self.sock.send(("UPDATE crawl SET screen_res = ?, ua_string = ? \
-                             WHERE crawl_id = ?", (screen_res, ua_string, browser.crawl_id)))
+            self.sock.send(six.b('UPDATE crawl SET screen_res = {}, ua_string = {} \n WHERE crawl_id = {}'.format(screen_res, ua_string, browser.crawl_id)))
 
     def _manager_watchdog(self):
         """
@@ -300,11 +303,9 @@ class TaskManager:
         for browser in self.browsers:
             browser.shutdown_browser(during_init)
             if failure:
-                self.sock.send(("UPDATE crawl SET finished = -1 WHERE crawl_id = ?",
-                                (browser.crawl_id,)))
+                self.sock.send(six.b("UPDATE crawl SET finished = -1 WHERE crawl_id = {}".format(browser.crawl_id,)))
             else:
-                self.sock.send(("UPDATE crawl SET finished = 1 WHERE crawl_id = ?",
-                                (browser.crawl_id,)))
+                self.sock.send(six.b("UPDATE crawl SET finished = 1 WHERE crawl_id = {}".format(browser.crawl_id,)))
 
         self.db.close()  # close db connection
         self.sock.close()  # close socket to data aggregator
@@ -383,7 +384,7 @@ class TaskManager:
             #send the command to all browsers
             command_executed = [False] * len(self.browsers)
             while False in command_executed:
-                for i in xrange(len(self.browsers)):
+                for i in range(len(self.browsers)):
                     if self.browsers[i].ready() and not command_executed[i]:
                         self.browsers[i].current_timeout = command_sequence.total_timeout
                         thread = self._start_thread(self.browsers[i], command_sequence)
@@ -394,7 +395,7 @@ class TaskManager:
             condition = threading.Condition()  # Used to block threads until ready
             command_executed = [False] * len(self.browsers)
             while False in command_executed:
-                for i in xrange(len(self.browsers)):
+                for i in range(len(self.browsers)):
                     if self.browsers[i].ready() and not command_executed[i]:
                         self.browsers[i].current_timeout = command_sequence.total_timeout
                         thread = self._start_thread(self.browsers[i], command_sequence, condition)
@@ -420,7 +421,7 @@ class TaskManager:
         self._check_failure_status()
 
         browser.set_visit_id(self.next_visit_id)
-        self.sock.send(("INSERT INTO site_visits (visit_id, crawl_id, site_url) VALUES (?,?,?)",
+        self.sock.send(six.b("INSERT INTO site_visits (visit_id, crawl_id, site_url) VALUES (?,?,?)",
                         (self.next_visit_id, browser.crawl_id, command_sequence.url)))
         self.next_visit_id += 1
 
@@ -484,7 +485,7 @@ class TaskManager:
                 self.logger.info("BROWSER %i: Timeout while executing command, "
                                  "%s, killing browser manager" % (browser.crawl_id, command[0]))
 
-            self.sock.send(("INSERT INTO CrawlHistory (crawl_id, command, arguments, bool_success)"
+            self.sock.send(six.b("INSERT INTO CrawlHistory (crawl_id, command, arguments, bool_success)"
                             " VALUES (?,?,?,?)",
                             (browser.crawl_id, command[0], command_arguments, command_succeeded)))
 

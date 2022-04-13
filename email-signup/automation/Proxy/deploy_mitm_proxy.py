@@ -1,11 +1,14 @@
-from ..MPLogger import loggingclient
-import MITMProxy
+import sys
+sys.path.append("..")
+
+from MPLogger import loggingclient
+from Proxy import MITMProxy
 
 from libmproxy import proxy
 from libmproxy.proxy.server import ProxyServer
 import threading
 import socket
-import Queue
+import queue
 import os
 
 

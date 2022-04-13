@@ -36,8 +36,8 @@ def get_flash_cookies(mod_since=0):
                 except (KeyboardInterrupt, SystemExit):
                     raise
                 except Exception as e:
-                    print "Exception reading", lso_file
-                    print e
+                    print("Exception reading", lso_file)
+                    print(e)
                     pass
     return flash_cookies
 
