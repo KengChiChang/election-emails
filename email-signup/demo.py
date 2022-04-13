@@ -10,10 +10,15 @@ sites = ['http://www.example.com',
 manager_params, browser_params = TaskManager.load_default_params(NUM_BROWSERS)
 
 # Update browser configuration (use this for per-browser settings)
-for i in range(NUM_BROWSERS):
+for i in xrange(NUM_BROWSERS):
+    browser_params[i]['headless'] = True
     browser_params[i]['http_instrument'] = True # Record HTTP Requests and Responses
     browser_params[i]['disable_flash'] = False #Enable flash for all three browsers
-browser_params[0]['headless'] = True #Launch only browser 0 headless
+    browser_params[i]['bot_mitigation'] = True
+    browser_params[i]['disable_images'] = False
+    browser_params[i]['js_instrument'] = True
+    browser_params[i]['cookie_instrument'] = True
+    browser_params[i]['save_javascript'] = True
 
 # Update TaskManager configuration (use this for crawl-wide settings)
 manager_params['data_directory'] = '~/Desktop/'

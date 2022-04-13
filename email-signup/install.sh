@@ -31,12 +31,10 @@ fi
 # Check if we're running on continuous integration
 # Python requirements are already installed by .travis.yml on Travis
 if [ "$TRAVIS" != "true" ]; then
-	# wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-	# sudo -H python get-pip.py
-	# rm get-pip.py
-  # sudo pip install -U -r requirements.txt
-  sudo -H pip3 install --upgrade pip
-	pip3 install -U -r requirements.txt
+	wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+	sudo -H python get-pip.py
+	rm get-pip.py
+	sudo pip install -U -r requirements.txt
 fi
 
 # Install specific version of Firefox known to work well with the selenium version above
@@ -53,5 +51,6 @@ mv firefox firefox-bin
 rm firefox*.tar.bz2
 
 sudo apt-get install --reinstall libgtk2.0-0
-
-chmod 770 ~/.mozilla/
+sudo apt-get install libx11-xcb1
+chmod 770 /home/ubuntu/.mozilla/
+sudo ln -sf /firefox-bin/firefox /usr/bin/firefox
