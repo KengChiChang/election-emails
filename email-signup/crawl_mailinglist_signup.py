@@ -8,14 +8,14 @@ NUM_BROWSERS = 1
 output_dir = '~/output_crawl/'
 db_name = 'crawl.sqlite'
 # Site list one of: shopping-500.csv, news-500.csv, top-1m.csv
-site_list = 'data/random-websites.csv'
+site_list = 'data/election_websites.csv'
 
 
 def get_site(site):
     if site.startswith('http://') or site.startswith('https://'):
         return site.strip()
     else:
-        return 'http://' + site.strip()
+        return 'https://' + site.strip()
 
 
 # Email address producer function (called when filling a form)
@@ -57,7 +57,22 @@ data = pd.read_csv(site_list)
 
 for index, row in data.iterrows():
     site = get_site(row['final_website'])
-    user_data = dict(eval(row['query_data']))
+    #user_data = dict(eval(row['query_data']))
+    user_data = {
+        'email': 'alex.smith.13357@gmail.com',
+        'first_name': 'Bob',
+        'last_name': 'Smith',
+        'full_name': 'Bob Smith',
+        'user': 'bobsmith123',
+        'password': 'p4S$w0rd123',
+        'tel': '2125551234',
+        'company': 'Smith & Co.',
+        'title': 'Mr.',
+        'zip': '12345',
+        'street1': '101 Main St.',
+        'street2': 'Apt. 101',
+        'city': 'Schenectady',
+        'state': 'New York'}
     if site is not None and site != '':
         crawl_site(site, manager, user_data)
 

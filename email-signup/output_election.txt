@@ -1,0 +1,111 @@
+TaskManager          - INFO     - 
+
+OpenWPM Version: 95b9852
+Firefox Version: 45.6.0
+
+========== Manager Configuration ==========
+{
+  "aggregator_address": [
+    "127.0.0.1",
+    41715
+  ],
+  "data_directory": "/home/ubuntu/output_crawl/",
+  "database_name": "/home/ubuntu/output_crawl/crawl.sqlite",
+  "failure_limit": null,
+  "ldb_address": [
+    "127.0.0.1",
+    55741
+  ],
+  "log_directory": "/home/ubuntu/output_crawl/",
+  "log_file": "/home/ubuntu/output_crawl/openwpm.log",
+  "logger_address": [
+    "127.0.0.1",
+    58899
+  ],
+  "num_browsers": 1,
+  "screenshot_path": "/home/ubuntu/output_crawl/screenshots",
+  "source_dump_path": "/home/ubuntu/output_crawl/sources",
+  "testing": false
+}
+
+========== Browser Configuration ==========
+Keys:
+{
+  "crawl_id": 0,
+  "adblock-plus": 1,
+  "bot_mitigation": 2,
+  "browser": 3,
+  "cookie_instrument": 4,
+  "cp_instrument": 5,
+  "disable_flash": 6,
+  "disable_images": 7,
+  "disable_webdriver_self_id": 8,
+  "donottrack": 9,
+  "extension_enabled": 10,
+  "ghostery": 11,
+  "headless": 12,
+  "http_instrument": 13,
+  "https-everywhere": 14,
+  "js_instrument": 15,
+  "proxy": 16,
+  "random_attributes": 17,
+  "save_javascript": 18,
+  "save_javascript_proxy": 19,
+  "tp_cookies": 20,
+  "tracking-protection": 21
+}
+
+  0  1      2     3        4     5      6     7      8     9      10    11     12    13    14     15    16     17     18    19     20      21
+---  -----  ----  -------  ----  -----  ----  -----  ----  -----  ----  -----  ----  ----  -----  ----  -----  -----  ----  -----  ------  -----
+127  False  True  firefox  True  False  True  False  True  False  True  False  True  True  False  True  False  False  True  False  always  False
+
+========== Input profile tar files ==========
+  No profile tar files specified
+
+========== Output (archive) profile directories ==========
+  No profile archive directories specified
+
+
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://seanmaloney.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 42)
+custom_commands      - INFO     - Submitted form on [https://www.seanmaloney.com/] with email [alex.smith.13357@gmail.com] on visit_id [42]
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://simafortx.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 43)
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://www.alekfororegon.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 44)
+custom_commands      - INFO     - Submitted form on [https://www.alekfororegon.com/] with email [alex.smith.13357@gmail.com] on visit_id [44]
+TaskManager          - INFO     - BROWSER 127: Timeout while executing command, FILL_FORMS, killing browser manager
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://lulufortexas.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 45)
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'http://www.marienewmanforcongress.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 46)
+BrowserManager       - INFO     - BROWSER 127: Crash in driver, restarting browser manager 
+ Traceback (most recent call last):
+  File "automation/BrowserManager.py", line 298, in BrowserManager
+    extension_socket)
+  File "automation/Commands/command_executor.py", line 67, in execute_command
+    manager_params=manager_params, extension_socket=extension_socket)
+  File "automation/Commands/custom_commands.py", line 107, in fill_forms
+    get_website(url, 0, visit_id, webdriver, proxy_queue, browser_params, extension_socket)
+  File "automation/Commands/browser_commands.py", line 118, in get_website
+    bot_mitigation(webdriver)
+  File "automation/Commands/browser_commands.py", line 42, in bot_mitigation
+    action.perform()
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/selenium/webdriver/common/action_chains.py", line 72, in perform
+    action()
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/selenium/webdriver/common/action_chains.py", line 206, in <lambda>
+    'yoffset': int(yoffset)}))
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/selenium/webdriver/remote/webdriver.py", line 201, in execute
+    self.error_handler.check_response(response)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/selenium/webdriver/remote/errorhandler.py", line 194, in check_response
+    raise exception_class(message, screen, stacktrace)
+WebDriverException: Message: AssertionError: Assertion failed'AssertionError: Assertion failed' when calling method: [wdIMouse::move]
+Stacktrace:
+    at FirefoxDriver.prototype.mouseMoveTo (file:///tmp/tmpcIRH7a/extensions/fxdriver@googlecode.com/components/driver-component.js:11031)
+    at DelayedCommand.prototype.executeInternal_/h (file:///tmp/tmpcIRH7a/extensions/fxdriver@googlecode.com/components/command-processor.js:12614)
+    at DelayedCommand.prototype.executeInternal_ (file:///tmp/tmpcIRH7a/extensions/fxdriver@googlecode.com/components/command-processor.js:12619)
+    at DelayedCommand.prototype.execute/< (file:///tmp/tmpcIRH7a/extensions/fxdriver@googlecode.com/components/command-processor.js:12561)
+
+TaskManager          - INFO     - BROWSER 127: Received failure status while executing command: FILL_FORMS
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://tonygonzalesforcongress.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 47)
+TaskManager          - INFO     - BROWSER 127: Timeout while executing command, FILL_FORMS, killing browser manager
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://mjfortexas.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 48)
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://evelynforny.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 49)
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'https://sri2020.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 50)
+BrowserManager       - INFO     - BROWSER 127: EXECUTING COMMAND: ('FILL_FORMS', 'http://petersformichigan.com', {'city': 'Schenectady', 'first_name': 'Bob', 'last_name': 'Smith', 'tel': '2125551234', 'zip': '12345', 'title': 'Mr.', 'street1': '101 Main St.', 'company': 'Smith & Co.', 'email': 'alex.smith.13357@gmail.com', 'state': 'New York', 'user': 'bobsmith123', 'full_name': 'Bob Smith', 'password': 'p4S$w0rd123', 'street2': 'Apt. 101'}, 3, 8, True, 51)
+custom_commands      - INFO     - Submitted form on [https://petersformichigan.com/] with email [alex.smith.13357@gmail.com] on visit_id [51]
